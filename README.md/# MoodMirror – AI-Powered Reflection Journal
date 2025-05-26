@@ -1,0 +1,48 @@
+# MoodMirror – AI-Powered Reflection Journal
+
+**MoodMirror** is a minimal, intelligent journaling app that helps users reflect on their mental and emotional state using AI-powered analysis and trend tracking.
+
+A solo project designed, built, and maintained by John Nwokike, focused on mental clarity, spiritual grounding, and self-awareness through personal journaling.
+
+---
+
+## Features
+
+- Write daily journal entries
+- Receive AI-generated insights about your mood and tone
+- Visualize emotional trends over time
+- Privacy-first: your reflections stay yours
+
+---
+
+## Tech Stack
+
+| Layer | Tech |
+|-------|------|
+| Frontend | React.js + Tailwind CSS |
+| Backend | Node.js + Express |
+| AI | OpenAI API (GPT-4) |
+| Database | MongoDB (Atlas) |
+| Charts | Chart.js |
+| Auth (Future) | Firebase or Auth0 (Optional) |
+
+---
+
+## In Progress
+
+- [ ] Build UI components for journaling
+- [ ] Set up backend API routes
+- [ ] Integrate OpenAI for sentiment analysis
+- [ ] Design charts to show mood trends
+- [ ] Secure data and deploy app
+
+---
+
+## Why This Project?
+
+Mental clarity, spiritual alignment, and deep self-reflection are missing from most productivity tools. MoodMirror isn't about performance — it's about presence.
+
+---
+
+## Folder Structure
+
