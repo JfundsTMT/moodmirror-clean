@@ -1,48 +1,99 @@
-# MoodMirror – AI-Powered Reflection Journal
+# MoodMirror
 
-**MoodMirror** is a minimal, intelligent journaling app that helps users reflect on their mental and emotional state using AI-powered analysis and trend tracking.
+**MoodMirror** is a personal journaling app I built with React and TailwindCSS to explore the intersection of mental wellness and AI. It allows users to log daily reflections while receiving meaningful AI-generated feedback based on their mood, energy, habits, and personal growth. The app is fully deployed on Vercel and designed with modularity, responsiveness, and clarity in mind.
 
-A solo project designed, built, and maintained by John Nwokike, focused on mental clarity, spiritual grounding, and self-awareness through personal journaling.
+### Live Demo  
+[Visit the deployed app] https://moodmirror-clean-git-main-johns-projects-1c3d0821.vercel.app
 
 ---
 
-## Features
+## Why I Built It
 
-- Write daily journal entries
-- Receive AI-generated insights about your mood and tone
-- Visualize emotional trends over time
-- Privacy-first: your reflections stay yours
+I created MoodMirror as a capstone-style solo project to strengthen my frontend development skills while also applying real AI use cases in a meaningful way. It was important for me to build something that wasn’t just functional but also personally impactful — something I’d want to use myself to track growth and mindset.
+
+This project helped me:
+- Practice React fundamentals through real UI and state logic
+- Integrate OpenAI’s API and design effective prompts
+- Use Tailwind for a clean, responsive UI
+- Learn how to debug, deploy, and polish a full-stack project
+
+---
+
+## Key Features
+
+- **Journaling Interface** – Custom form inputs for mood, energy, gratitude, goals, distractions, and freeform reflection
+- **AI Reflection** – GPT generates tailored feedback for each journal entry based on prompt engineering
+- **Trends Dashboard** – Uses Chart.js to display mood/energy patterns over the last 7 entries
+- **Local Storage** – Journals persist even on refresh, no backend required
+- **Responsive Design** – Fully styled with TailwindCSS and optimized for desktop & mobile
 
 ---
 
 ## Tech Stack
 
-| Layer | Tech |
-|-------|------|
-| Frontend | React.js + Tailwind CSS |
-| Backend | Node.js + Express |
-| AI | OpenAI API (GPT-4) |
-| Database | MongoDB (Atlas) |
-| Charts | Chart.js |
-| Auth (Future) | Firebase or Auth0 (Optional) |
+- **Frontend**: React.js, TailwindCSS, Chart.js
+- **AI Integration**: OpenAI API
+- **State Management**: React hooks
+- **Data Persistence**: localStorage
+- **Deployment**: Vercel
 
 ---
 
-## In Progress
+## Project Structure
 
-- [ ] Build UI components for journaling
-- [ ] Set up backend API routes
-- [ ] Integrate OpenAI for sentiment analysis
-- [ ] Design charts to show mood trends
-- [ ] Secure data and deploy app
+```
+client/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── JournalFormUI.js
+│   │   ├── EntryCard.js
+│   │   ├── GPTService.js
+│   │   ├── Trends.js
+│   │   └── ...
+│   ├── App.js
+│   └── index.js
+├── .env (not committed)
+└── tailwind.config.js
+```
 
 ---
 
-## Why This Project?
+## How to Run Locally
 
-Mental clarity, spiritual alignment, and deep self-reflection are missing from most productivity tools. MoodMirror isn't about performance — it's about presence.
+1. Clone the repo  
+   ```bash
+   git clone https://github.com/JfundsTMT/moodmirror-clean.git
+   cd moodmirror-clean/client
+   ```
+
+2. Install dependencies  
+   ```bash
+   npm install
+   ```
+
+3. Add your `.env` file  
+   ```
+   REACT_APP_OPENAI_API_KEY=your-api-key
+   ```
+
+4. Start the app  
+   ```bash
+   npm start
+   ```
 
 ---
 
-## Folder Structure
+## Future Improvements
 
+- Add user authentication (multi-user journaling)
+- Integrate memory/contextual GPT feedback
+- Export journal entries as PDF or CSV
+- Weekly mood summaries and tags
+- Cloud storage integration for syncing across devices
+
+---
+
+## Personal Reflection
+
+Building this project gave me a new appreciation for how AI can be used to deepen human self-awareness. It was also an opportunity to bring together clean UI, functional state logic, and prompt design into something cohesive and personal. I'm proud of how far this has come, and I look forward to refining it further.
