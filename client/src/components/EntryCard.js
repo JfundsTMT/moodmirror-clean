@@ -37,14 +37,14 @@ function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalPr
 
       {reflection && (
         <div className="mt-4 text-sm bg-gray-900 border border-blue-600 p-3 rounded shadow-inner">
-          <p className="font-semibold text-blue-400 mb-2">AI Reflection:</p>
+          <p className="font-semibold text-blue-400 mb-2"> Reflection:</p>
           <div className="whitespace-pre-line text-blue-200">{reflection}</div>
         </div>
       )}
 
       {growthScore != null && (
         <div className="mt-2 text-sm text-purple-300 font-semibold">
-          Growth Score: {growthScore}/10
+          Growth: {growthScore}/10
         </div>
       )}
     </div>

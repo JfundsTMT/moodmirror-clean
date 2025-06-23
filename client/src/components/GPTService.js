@@ -13,7 +13,7 @@ export async function fetchReflection(prompt) {
     });
   
     const data = await response.json();
-    console.log("FULL GPT RESPONSE:", data); // 👈 keep this
+    console.log("FULL GPT RESPONSE:", data);
   
     if (!data.choices || !data.choices[0] || !data.choices[0].message) {
       return {
@@ -24,7 +24,7 @@ export async function fetchReflection(prompt) {
   
     return {
       reflection: data.choices[0].message.content,
-      growthScore: 7, // Or however you calculate it
+      growthScore: 7, //not complete
     };
   }
   
