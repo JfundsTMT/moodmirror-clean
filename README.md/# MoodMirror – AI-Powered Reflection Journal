@@ -3,8 +3,20 @@
 **MoodMirror** is a personal journaling app I built with React and TailwindCSS to explore the intersection of mental wellness and AI. It allows users to log daily reflections while receiving meaningful AI-generated feedback based on their mood, energy, habits, and personal growth. The app is fully deployed on Vercel and designed with modularity, responsiveness, and clarity in mind.
 
 ### Live Demo  
-[Visit the deployed app] 
-[Live Demo](https://moodmirror-clean-git-main-johns-projects-1c3d0821.vercel.app)
+👉 [View MoodMirror Live on Vercel](https://moodmirror-clean-git-main-johns-projects-1c3d0821.vercel.app)
+
+
+## 📸 App Screenshots
+
+### Home Screen  
+![Home](client/public/screenshots/home.png)
+
+### Trends View  
+![Trends](client/public/screenshots/trends.png)
+
+### AI Reflection  
+![Reflection](client/public/screenshots/reflection.png)
+
 
 
 ---
@@ -97,5 +109,4 @@ client/
 ---
 
 ## Personal Reflection
-
-Building this project gave me a new appreciation for how AI can be used to deepen human self-awareness. It was also an opportunity to bring together clean UI, functional state logic, and prompt design into something cohesive and personal. I'm proud of how far this has come, and I look forward to refining it further.
+Building this project deepened my appreciation for how AI can support personal growth and reflection. It challenged me to bring together UI polish, functional state logic, and prompt engineering in a cohesive way. This is a project I would personally use — and that’s what made it rewarding. I’m proud of how far it’s come and eager to keep refining it.
