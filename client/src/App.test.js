@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+jest.mock('react-calendar', () => () => <div data-testid="calendar" />);
+jest.mock('react-calendar/dist/Calendar.css', () => ({}), { virtual: true });
+
+test('renders the journal with the entry form', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText('MoodMirror')).toBeInTheDocument();
+  expect(screen.getByLabelText('Journal entry')).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /submit/i })).toBeDisabled();
 });

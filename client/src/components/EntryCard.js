@@ -20,7 +20,7 @@ function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalPr
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-300 mb-2">
-        <p><span className="font-semibold text-cyan-400">Mood:</span> {mood}</p>
+        <p><span className="font-semibold text-cyan-400">Mood:</span> {mood}/10</p>
         <p><span className="font-semibold text-cyan-400">Energy:</span> {energy}/10</p>
         <p><span className="font-semibold text-cyan-400">Sleep:</span> {sleepQuality}/10</p>
         {gratitude && <p><span className="font-semibold text-cyan-400">Gratitude:</span> {gratitude}</p>}

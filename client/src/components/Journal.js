@@ -1,67 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import JournalFormUI from './JournalFormUI';
 import { fetchReflection } from './GPTService';
 import CurrentReflectionPreview from './CurrentReflectionPreview';
 import LogsSection from './LogsSection';
-import ShadowCalendar from './ShadowCalendar';
+import { loadEntries, saveEntries } from '../storage';
 
-
-
-const LOCAL_KEY = 'journalEntries';
-
-const Journal = () => {
-  // All *archived* logs
-  const [entries, setEntries] = useState([]);
+const Journal = ({ selectedDate }) => {
+  // All *archived* logs, loaded up front so archiving never overwrites saved entries
+  const [entries, setEntries] = useState(loadEntries);
   // Current journal reflection/analysis (not yet archived)
   const [currentAnalysis, setCurrentAnalysis] = useState(null);
   // Control archive visibility
   const [showLogs, setShowLogs] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
-
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  <ShadowCalendar value={selectedDate} onChange={setSelectedDate} />
-
-
-
-
-  // Always load logs from localStorage on showLogs toggle or mount
-  useEffect(() => {
-    if (showLogs) {
-      const saved = localStorage.getItem(LOCAL_KEY);
-      setEntries(saved ? JSON.parse(saved) : []);
-    }
-  }, [showLogs]);
+  const [error, setError] = useState('');
 
   // Save to localStorage when user confirms archiving a journal
   const archiveCurrentAnalysis = () => {
     if (!currentAnalysis) return;
     const updated = [currentAnalysis, ...entries];
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(updated));
+    saveEntries(updated);
     setEntries(updated);
     setCurrentAnalysis(null);
   };
 
   // When user submits form, analyze with GPT and preview below form
   const addNewEntry = async (entry) => {
-  setIsLoading(true);
-  try {
-    const { reflection, growthScore } = await fetchReflection(entry);
+    setIsLoading(true);
+    setError('');
+    try {
+      const { reflection, growthScore } = await fetchReflection(entry);
 
-    setCurrentAnalysis({
-      ...entry,
-      timestamp: selectedDate.toISOString(),
-      reflection,
-      growthScore,
-    });
-  } catch (err) {
-    alert('Could not get AI reflection. Try again.');
-    console.error(err);
-  } finally {
-    setIsLoading(false);
-  }
-};
-
+      setCurrentAnalysis({
+        ...entry,
+        timestamp: selectedDate.toISOString(),
+        reflection,
+        growthScore,
+      });
+    } catch (err) {
+      setError('Could not get an AI reflection. Your entry was not lost: please try again.');
+      console.error(err);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+    return true;
+  };
 
   return (
     <div className="min-h-screen bg-transparent text-white">
@@ -71,30 +55,34 @@ const Journal = () => {
 
       {/* Journal Entry Form */}
       <section className="max-w-3xl mx-auto bg-gray-900 border border-cyan-700 p-6 rounded-xl shadow-lg ring-1 ring-cyan-500/30">
-      <JournalFormUI onSubmit={addNewEntry} />
+        <JournalFormUI onSubmit={addNewEntry} disabled={isLoading} date={selectedDate} />
       </section>
 
-{isLoading && (
-  <div className="flex justify-center mt-6">
-    <div className="h-12 w-12 animate-spin rounded-full border-4 border-fuchsia-400 border-t-transparent shadow-lg shadow-fuchsia-500/30" />
+      {error && (
+        <p role="alert" className="max-w-3xl mx-auto mt-4 text-center text-red-300">
+          {error}
+        </p>
+      )}
 
-  </div>
-)}
+      {isLoading && (
+        <div className="flex justify-center mt-6" role="status" aria-label="Generating reflection">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-fuchsia-400 border-t-transparent shadow-lg shadow-fuchsia-500/30" />
+        </div>
+      )}
 
       {/* Current Reflection Preview (never in past logs until archived) */}
       {currentAnalysis && (
-  <CurrentReflectionPreview
-    entry={currentAnalysis}
-    onArchive={archiveCurrentAnalysis}
-  />
-  
-)}
+        <CurrentReflectionPreview
+          entry={currentAnalysis}
+          onArchive={archiveCurrentAnalysis}
+        />
+      )}
 
-<LogsSection
-  entries={entries}
-  showLogs={showLogs}
-  toggleLogs={() => setShowLogs((v) => !v)}
-/>
+      <LogsSection
+        entries={entries}
+        showLogs={showLogs}
+        toggleLogs={() => setShowLogs((v) => !v)}
+      />
 
     </div>
   );
