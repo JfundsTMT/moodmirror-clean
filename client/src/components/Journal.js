@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import JournalFormUI from './JournalFormUI';
 import { fetchReflection } from './GPTService';
-import { buildPromptFromEntry } from './promptBuilder';
 import CurrentReflectionPreview from './CurrentReflectionPreview';
 import LogsSection from './LogsSection';
 import ShadowCalendar from './ShadowCalendar';
@@ -47,8 +46,7 @@ const Journal = () => {
   const addNewEntry = async (entry) => {
   setIsLoading(true);
   try {
-    const prompt = buildPromptFromEntry(entry);
-    const { reflection, growthScore } = await fetchReflection(prompt);
+    const { reflection, growthScore } = await fetchReflection(entry);
 
     setCurrentAnalysis({
       ...entry,
