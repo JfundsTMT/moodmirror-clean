@@ -33,6 +33,14 @@ const Trends = () => {
           backgroundColor: 'rgb(54, 162, 235)',
           tension: 0.4,
         },
+        {
+          label: 'Growth',
+          data: recent.map((entry) => entry.growthScore ?? null),
+          borderColor: 'rgb(74, 222, 128)',
+          backgroundColor: 'rgb(74, 222, 128)',
+          tension: 0.4,
+          spanGaps: true,
+        },
       ],
     };
   }, []);

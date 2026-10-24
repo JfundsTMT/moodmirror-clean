@@ -35,13 +35,14 @@ const Journal = ({ selectedDate }) => {
     setIsLoading(true);
     setError('');
     try {
-      const { reflection, growthScore } = await fetchReflection(entry);
+      const { reflection, growthScore, scoreReason } = await fetchReflection(entry);
 
       setCurrentAnalysis({
         ...entry,
         timestamp: selectedDate.toISOString(),
         reflection,
         growthScore,
+        scoreReason,
       });
     } catch (err) {
       setError('Could not get an AI reflection. Your entry was not lost: please try again.');

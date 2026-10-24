@@ -12,6 +12,7 @@ export async function fetchReflection(entry) {
 
   return {
     reflection: data.reflection,
-    growthScore: null, // not computed yet
+    growthScore: data.growthScore ?? null,
+    scoreReason: data.scoreReason ?? null,
   };
 }

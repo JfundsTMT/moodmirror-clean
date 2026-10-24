@@ -3,7 +3,7 @@ import React from 'react';
 
 
 // EntryCard component displays a single journal entry, including GPT reflection and growth score
-function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalProgress, distractions, timestamp, reflection, growthScore, onDelete }) {
+function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalProgress, distractions, timestamp, reflection, growthScore, scoreReason, onDelete }) {
   const formattedDate = new Date(timestamp).toLocaleString('en-GB', {
     day: '2-digit',
     month: '2-digit',
@@ -45,6 +45,7 @@ function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalPr
       {growthScore != null && (
         <div className="mt-2 text-sm text-purple-300 font-semibold">
           Growth: {growthScore}/10
+          {scoreReason && <span className="block font-normal text-purple-200/80">{scoreReason}</span>}
         </div>
       )}
 
