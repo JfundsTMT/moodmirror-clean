@@ -57,17 +57,15 @@ This project helped me:
 
 ```
 client/
+├── api/
+│   └── reflect.js        # Vercel serverless function: calls OpenAI, keeps the key server-side
 ├── public/
 ├── src/
-│   ├── components/
-│   │   ├── JournalFormUI.js
-│   │   ├── EntryCard.js
-│   │   ├── GPTService.js
-│   │   ├── Trends.js
-│   │   └── ...
+│   ├── components/       # JournalFormUI, EntryCard, Trends, ShadowCalendar, ...
+│   ├── storage.js        # safe localStorage helpers
 │   ├── App.js
 │   └── index.js
-├── .env (not committed)
+├── .env.example
 └── tailwind.config.js
 ```
 
@@ -75,26 +73,28 @@ client/
 
 ## How to Run Locally
 
-1. Clone the repo  
+The OpenAI key is only ever used by the serverless function in `client/api/`, so run the app with the Vercel CLI (plain `npm start` does not serve `/api`).
+
+1. Clone the repo
    ```bash
    git clone https://github.com/JfundsTMT/moodmirror-clean.git
    cd moodmirror-clean/client
-   ```
-
-2. Install dependencies  
-   ```bash
    npm install
    ```
 
-3. Add your `.env` file  
+2. Add your key (see `.env.example`)
    ```
-   REACT_APP_OPENAI_API_KEY=your-api-key
+   MOODMIRROR_OPENAI_API_KEY=your-api-key
    ```
 
-4. Start the app  
+3. Start the app
    ```bash
-   npm start
+   npx vercel dev
    ```
+
+## Deploying
+
+Set `MOODMIRROR_OPENAI_API_KEY` in the Vercel project's Environment Variables (Production and Preview), with the project root set to `client`. Never prefix it with `REACT_APP_`: Create React App bundles those variables into public JavaScript.
 
 ---
 

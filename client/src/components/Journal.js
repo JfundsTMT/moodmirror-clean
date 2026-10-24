@@ -24,6 +24,12 @@ const Journal = ({ selectedDate }) => {
     setCurrentAnalysis(null);
   };
 
+  const deleteEntry = (timestamp, idx) => {
+    const updated = entries.filter((e, i) => i !== idx);
+    saveEntries(updated);
+    setEntries(updated);
+  };
+
   // When user submits form, analyze with GPT and preview below form
   const addNewEntry = async (entry) => {
     setIsLoading(true);
@@ -48,13 +54,10 @@ const Journal = ({ selectedDate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-white">
-
-      {/* Header */}
-      <h1 className="text-4xl font-bold text-center text-cyan-400 mb-10">MoodMirror</h1>
+    <div className="bg-transparent text-white">
 
       {/* Journal Entry Form */}
-      <section className="max-w-3xl mx-auto bg-gray-900 border border-cyan-700 p-6 rounded-xl shadow-lg ring-1 ring-cyan-500/30">
+      <section className="max-w-3xl mx-auto px-4">
         <JournalFormUI onSubmit={addNewEntry} disabled={isLoading} date={selectedDate} />
       </section>
 
@@ -82,6 +85,7 @@ const Journal = ({ selectedDate }) => {
         entries={entries}
         showLogs={showLogs}
         toggleLogs={() => setShowLogs((v) => !v)}
+        onDelete={deleteEntry}
       />
 
     </div>

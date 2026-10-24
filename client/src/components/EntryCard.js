@@ -3,7 +3,7 @@ import React from 'react';
 
 
 // EntryCard component displays a single journal entry, including GPT reflection and growth score
-function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalProgress, distractions, timestamp, reflection, growthScore }) {
+function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalProgress, distractions, timestamp, reflection, growthScore, onDelete }) {
   const formattedDate = new Date(timestamp).toLocaleString('en-GB', {
     day: '2-digit',
     month: '2-digit',
@@ -15,7 +15,7 @@ function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalPr
   return (
     <div className="bg-gray-800 border-l-4 border-purple-500 p-4 rounded-lg shadow-md transition-all hover:shadow-lg">
       <div className="flex justify-between items-center mb-2">
-        <h3 className="text-lg font-semibold text-cyan-300">{title}</h3>
+        <h3 className="text-lg font-semibold text-cyan-300">{!title || title === 'player' ? 'Daily Reflection' : title}</h3>
         <span className="text-sm text-gray-400">{formattedDate}</span>
       </div>
 
@@ -46,6 +46,15 @@ function EntryCard({ title, entry, mood, energy, sleepQuality, gratitude, goalPr
         <div className="mt-2 text-sm text-purple-300 font-semibold">
           Growth: {growthScore}/10
         </div>
+      )}
+
+      {onDelete && (
+        <button
+          onClick={onDelete}
+          className="mt-3 text-xs text-red-300 hover:text-red-200 underline focus:outline-none focus-visible:ring-2 focus-visible:ring-red-300 rounded"
+        >
+          Delete entry
+        </button>
       )}
     </div>
   );

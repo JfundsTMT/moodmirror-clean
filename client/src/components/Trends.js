@@ -1,10 +1,12 @@
 // Trends.js
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from 'chart.js';
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Legend, Tooltip } from 'chart.js';
 import { useMemo } from 'react';
 import { loadEntries } from '../storage';
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Legend, Tooltip);
+ChartJS.defaults.color = '#e9d5ff';
+ChartJS.defaults.borderColor = 'rgba(192, 132, 252, 0.2)';
 
 const Trends = () => {
   const chartData = useMemo(() => {
@@ -21,12 +23,14 @@ const Trends = () => {
           label: 'Mood',
           data: recent.map((entry) => entry.mood ?? null),
           borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: 'rgb(255, 99, 132)',
           tension: 0.4,
         },
         {
           label: 'Energy',
           data: recent.map((entry) => entry.energy ?? null),
           borderColor: 'rgb(54, 162, 235)',
+          backgroundColor: 'rgb(54, 162, 235)',
           tension: 0.4,
         },
       ],
@@ -43,11 +47,11 @@ const Trends = () => {
 
   return (
     <div className="p-4 max-w-3xl mx-auto">
-      <h2 className="text-xl mb-4">Mood & Energy Trends (Last 7 Entries)</h2>
+      <h2 className="text-xl mb-4 text-center text-purple-200">Mood & Energy Trends (Last 7 Entries)</h2>
       <Line
         data={chartData}
         options={{
-          scales: { y: { min: 0, max: 10 } },
+          scales: { y: { min: 0, max: 10, ticks: { stepSize: 1 } } },
         }}
       />
     </div>

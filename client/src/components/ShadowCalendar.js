@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 
 const ShadowCalendar = ({ value, onChange }) => {
   return (
-    <div className="fixed top-24 right-6 z-40 w-64 bg-[#1b002c] border border-purple-700 p-4 rounded-xl shadow-lg ring-1 ring-purple-500/20">
+    <div className="mx-auto mt-6 w-64 2xl:fixed 2xl:top-24 2xl:right-6 2xl:mt-0 z-40 bg-[#1b002c] border border-purple-700 p-4 rounded-xl shadow-lg ring-1 ring-purple-500/20">
       <h2 className="text-lg font-bold text-purple-300 text-center mb-2">🗓️  Calendar</h2>
       <Calendar
   onChange={onChange}

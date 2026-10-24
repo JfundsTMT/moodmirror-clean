@@ -1,7 +1,7 @@
 // components/JournalFormUI.js
 import React, { useState } from 'react';
 
-export default function JournalFormUI({ onSubmit, name = 'player', date = new Date(), disabled = false }) {
+export default function JournalFormUI({ onSubmit, name = 'Daily Reflection', date = new Date(), disabled = false }) {
   const [journalText, setJournalText] = useState('');
   const [goals, setGoals] = useState('');
   const [gratitude, setGratitude] = useState('');
