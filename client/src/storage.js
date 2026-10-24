@@ -17,3 +17,7 @@ export function saveEntries(entries) {
     console.error('Could not save entries', err);
   }
 }
+
+export function sortNewestFirst(entries) {
+  return [...entries].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+}

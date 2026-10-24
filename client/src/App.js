@@ -1,38 +1,67 @@
 // App.js
-import Journal from './components/Journal';
-import ShadowCalendar from './components/ShadowCalendar';
-import Trends from './components/Trends';
 import { useState } from 'react';
+import Today from './components/Today';
+import Timeline from './components/Timeline';
+import Trends from './components/Trends';
+import { loadEntries, saveEntries } from './storage';
 
-const tabClass = (active) =>
-  `px-4 py-2 rounded font-bold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
-    active ? 'bg-purple-600 text-white' : 'bg-purple-950/60 text-purple-200 hover:bg-purple-800/60'
-  }`;
+const VIEWS = [
+  { id: 'today', label: 'Today' },
+  { id: 'timeline', label: 'Timeline' },
+  { id: 'trends', label: 'Trends' },
+];
 
 function App() {
-  const [showTrends, setShowTrends] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [view, setView] = useState(() => {
+    const hash = window.location.hash.slice(1);
+    return VIEWS.some((v) => v.id === hash) ? hash : 'today';
+  });
+  // Saved entries, newest first. Loaded once so saving never overwrites existing logs.
+  const [entries, setEntries] = useState(loadEntries);
+
+  const addEntry = (entry) => {
+    const updated = [entry, ...entries];
+    saveEntries(updated);
+    setEntries(updated);
+  };
+
+  const deleteEntry = (entry) => {
+    const updated = entries.filter((e) => e !== entry);
+    saveEntries(updated);
+    setEntries(updated);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#100015] via-[#1b0030] to-[#2c0057] text-white font-mono pb-16">
-      <header className="pt-8 text-center">
-        <h1 className="text-4xl font-bold text-cyan-400">MoodMirror</h1>
-        <p className="mt-1 text-sm text-purple-300">Write it out. See yourself clearly.</p>
+    <div className="min-h-screen bg-ink-950 pb-24 text-zinc-200">
+      <header className="sticky top-0 z-20 border-b border-white/5 bg-ink-950/80 backdrop-blur">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+          <button onClick={() => setView('today')} className="flex items-center gap-2 font-serif text-lg text-zinc-50 sm:text-xl">
+            <span aria-hidden="true" className="inline-block h-4 w-4 rounded-full border-2 border-accent" />
+            MoodMirror
+          </button>
+          <nav aria-label="Views" className="flex gap-0.5 sm:gap-1">
+            {VIEWS.map((v) => (
+              <button
+                key={v.id}
+                onClick={() => setView(v.id)}
+                aria-current={view === v.id ? 'page' : undefined}
+                className={`rounded-lg px-2.5 py-1.5 text-sm transition sm:px-3 ${
+                  view === v.id ? 'bg-white/10 text-zinc-50' : 'text-zinc-400 hover:text-zinc-200'
+                }`}
+              >
+                {v.label}
+              </button>
+            ))}
+          </nav>
+        </div>
       </header>
 
-      <nav aria-label="Views" className="flex justify-center gap-2 mt-6">
-        <button className={tabClass(!showTrends)} aria-pressed={!showTrends} onClick={() => setShowTrends(false)}>
-          Journal
-        </button>
-        <button className={tabClass(showTrends)} aria-pressed={showTrends} onClick={() => setShowTrends(true)}>
-          Trends
-        </button>
-      </nav>
-
-      <ShadowCalendar value={selectedDate} onChange={setSelectedDate} />
-
-      <main className="mt-8">
-        {showTrends ? <Trends /> : <Journal selectedDate={selectedDate} />}
+      <main className="pt-10">
+        {view === 'today' && <Today onSave={addEntry} onViewTimeline={() => setView('timeline')} />}
+        {view === 'timeline' && (
+          <Timeline entries={entries} onDelete={deleteEntry} onWrite={() => setView('today')} />
+        )}
+        {view === 'trends' && <Trends entries={entries} onWrite={() => setView('today')} />}
       </main>
     </div>
   );
